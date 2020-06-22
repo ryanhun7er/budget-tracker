@@ -1,26 +1,48 @@
-var WebpackPwaManifest = require('webpack-pwa-manifest')
+var WebpackPwaManifest = require('webpack-pwa-manifest');
+const path = require("path");
 
-plugins: [
-    new WebpackPwaManifest({
-      name: 'Budget Tracker',
-      short_name: 'MyPWA',
-      description: 'Budget Tracker',
-      background_color: '#ffffff',
-      crossorigin: 'null', //can be null, use-credentials or anonymous
-      icons: [
-        {
-          src: path.resolve('src/assets/icon.png'),
-          sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
-        },
-        {
-          src: path.resolve('src/assets/large-icon.png'),
-          size: '1024x1024' // you can also use the specifications pattern
-        },
-        {
-          src: path.resolve('src/assets/maskable-icon.png'),
-          size: '1024x1024',
-          purpose: 'maskable'
-        }
-      ]
-    })
-  ]
+const config = {
+    entry: {
+      app: "./server.js",
+      },
+      output: {
+        path: __dirname + "/dist",
+        filename: "[name].bundle.js"
+      },
+      mode: "development",
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"]
+              }
+            }
+          }
+        ]
+      },
+      plugins: [
+        new WebpackPwaManifest({
+          name: 'Budget Tracker',
+          short_name: 'MyPWA',
+          description: 'Budget Tracker',
+          background_color: '#ffffff',
+          crossorigin: 'null', //can be null, use-credentials or anonymous
+          icons: [
+            {
+              src: path.resolve('/icons/icon-192x192.png'),
+              size: '192x192' 
+            },
+            {
+              src: path.resolve('/icons/icon-512x512.png'),
+              size: '512x512' 
+            },
+          ]
+        })
+      ]    
+      
+}
+
