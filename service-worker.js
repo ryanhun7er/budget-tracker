@@ -5,7 +5,7 @@ const FILES_TO_CACHE = [
     "/styles.css",
     "/routes/api.js",
     "/server.js",
-    "/models/transaction.js"
+    "/models/transaction.js",
   ];
   
   
